@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     base64 (0.2.0)
+    bigdecimal (3.1.8)
     date (3.3.4)
     dotenv (3.1.2)
     ffi (1.17.0)
@@ -79,6 +80,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  bigdecimal
   dotenv
   json
   mail

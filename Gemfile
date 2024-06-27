@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 # for backend framework
 gem 'sinatra'
 gem 'puma'
+
 gem 'mysql2'
+gem 'bigdecimal'
 
 
 # utilities

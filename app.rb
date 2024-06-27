@@ -4,7 +4,7 @@ require 'dotenv'
 
 require_relative 'email'
 require_relative 'otp'
-
+require_relative 'database'
 
 class EmailValidatorAPI < Sinatra::Base
     # set root folder of the project
