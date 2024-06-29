@@ -7,6 +7,7 @@ module EmailValidator
         def initialize(options = {})
             @options = options
             @database = options[:database] || 'email_validator'
+            @tablename = options[:table_name] || 'otp_session'
             @client = nil
         end
 
@@ -18,6 +19,10 @@ module EmailValidator
                 :password => @options[:password] || 'postgres',
                 :dbname => @database
             )
+
+            @tablename = @client.quote_ident(@tablename)
+
+            reset_table
         end
 
         def disconnect
@@ -34,6 +39,20 @@ module EmailValidator
 
         def exec(sql)
             @client.exec(sql)
+        end
+
+        def reset_table
+            @client.exec(
+                "DROP TABLE IF EXISTS #{@tablename}",
+            )
+
+            @client.exec(
+                "CREATE TABLE #{@tablename} (
+                    sql_id SERIAL PRIMARY KEY,
+                    email varchar(255) NOT NULL,
+                    id varchar(255) NOT NULL UNIQUE,
+                    secret varchar(255) NOT NULL);"
+            )
         end
 
         def get_otp_session (id)
