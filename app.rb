@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'sinatra/base'
-require 'sinatra/json'
 
 require 'dotenv'
+require 'json'
 
 require_relative 'email'
 require_relative 'otp'

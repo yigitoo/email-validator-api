@@ -4,9 +4,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'puma'
 
-gem 'mysql2'
-gem 'bigdecimal'
-
+gem 'pg'
 
 # utilities
 gem 'json'

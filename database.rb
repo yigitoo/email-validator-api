@@ -1,4 +1,4 @@
-require 'mysql2'
+require 'pg'
 
 module EmailValidator
     class Database
@@ -11,11 +11,11 @@ module EmailValidator
         end
 
         def connect
-            @client = Mysql2::Client.new(
-                :host => @options[:host] || 'localhost', 
-                :port => @options[:port] || 3306,
-                :username => @options[:username] || 'root',
-                :password => @options[:password] || '',
+            @client = PG::connect(
+                :host => @options[:host] || 'localhost',
+                :port => @options[:port] || 5432,
+                :username => @options[:username] || 'postgres',
+                :password => @options[:password] || 'postgres',
                 :database => @database
             )
         end
@@ -49,7 +49,7 @@ module EmailValidator
             if results.empty? or results.count == 0 then
                 return false
             end
-            
+
             return true
         end
 
