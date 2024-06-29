@@ -1,4 +1,7 @@
+#!/usr/bin/env ruby
+
 require 'sinatra/base'
+require 'sinatra/json'
 
 require 'dotenv'
 
@@ -8,14 +11,14 @@ require_relative 'database'
 
 class EmailValidatorAPI < Sinatra::Base
     # set root folder of the project
-    set :root, File.dirname(__FILE__) 
+    set :root, File.dirname(__FILE__)
     set :public_folder, File.dirname(__FILE__) + '/static'
     enable :sessions
     enable :loggin
 
     Dotenv.load
 
-    @@mail_client = EmailValidator::Email.new
+    @@mail_client = EmailValidator::Email.new{}
     @@db_client = EmailValidator::Database.new(options={
         :username => ENV['DB_USER'],
         :password => ENV['DB_PASSWORD'],
@@ -23,7 +26,10 @@ class EmailValidatorAPI < Sinatra::Base
     @@db_client.connect
 
     get '/' do
-        "Hello World"
+        json({
+            :message => "Email Validator API",
+            :version => 'v1',
+        })
     end
 
 
