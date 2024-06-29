@@ -19,17 +19,19 @@ class EmailValidatorAPI < Sinatra::Base
     Dotenv.load
 
     @@mail_client = EmailValidator::Email.new{}
-    @@db_client = EmailValidator::Database.new(options={
+    @@db_client = EmailValidator::Database.new({
         :username => ENV['DB_USER'],
         :password => ENV['DB_PASSWORD'],
     })
     @@db_client.connect
 
     get '/' do
-        json({
-            :message => "Email Validator API",
-            :version => 'v1',
-        })
+        content_type :json
+
+        {
+            message: "Email Validator API",
+            version: 'v1',
+        }.to_json
     end
 
 

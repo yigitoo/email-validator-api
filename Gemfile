@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby File.read(".ruby-version").strip
+
 # for backend framework
 gem 'sinatra'
 gem 'puma'

@@ -14,9 +14,9 @@ module EmailValidator
             @client = PG::connect(
                 :host => @options[:host] || 'localhost',
                 :port => @options[:port] || 5432,
-                :username => @options[:username] || 'postgres',
+                :user => @options[:username] || 'postgres',
                 :password => @options[:password] || 'postgres',
-                :database => @database
+                :dbname => @database
             )
         end
 
@@ -29,7 +29,16 @@ module EmailValidator
         end
 
         def query(sql)
-            @client.query(sql)
+            @client.exec(sql)
+        end
+
+        def exec(sql)
+            @client.exec(sql)
+        end
+
+        def get_otp_session (id)
+            @client.exec()
+
         end
 
         def add_otp_session(otp_session)
