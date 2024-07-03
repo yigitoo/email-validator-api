@@ -60,6 +60,24 @@ module EmailValidator
 
         end
 
+        def validate(id, secret)
+            id = @client.escape(id)
+            secret = @client.escape(secret)
+
+            id = @client.quote_ident(id)
+            secret = @client.quote_ident(secret)
+
+            rows = @client.exec("SELECT * FORM otp_sesion WHERE id=#{id} and secret=#{secret}")
+            rows.each do |row|
+                if row['id'].empty? then
+                    return false
+                else
+                    return true
+                end
+            end
+        end
+
+
         def add_otp_session(otp_session)
             is_otp_session_exist = check_otp_session(otp_session)
             if is_otp_session_exist then
@@ -73,12 +91,14 @@ module EmailValidator
         end
 
         def check_otp_session(otp_session)
+
             results = @client.query("SELECT * FROM otp_session WHERE email=#{@client.escape(otp_session.email)};")
             if results.empty? or results.count == 0 then
                 return false
             end
 
             return true
+
         end
 
     end

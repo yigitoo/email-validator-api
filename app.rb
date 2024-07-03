@@ -47,7 +47,7 @@ class EmailValidatorAPI < Sinatra::Base
             return "OTP session not found"
         end
 
-        if otp_session.validate(secret)
+        if otp_session.validate(id, secret)
             return "Success"
         else
             return "Invalid OTP"
