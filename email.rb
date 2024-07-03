@@ -9,7 +9,7 @@ module EmailValidator
         def initialize
             Dotenv.load
 
-            @@options = { 
+            @@options = {
                 :address => "smtp.gmail.com",
                 :port => 587,
                 :user_name => ENV['SENDER_MAIL'],
@@ -22,7 +22,7 @@ module EmailValidator
         end
 
         def send_mail(send_to, title)
-            begin 
+            begin
                 otp = EmailValidator::OTP.new(send_to)
                 otp.generate_secret
 
@@ -38,16 +38,15 @@ module EmailValidator
                         Your app code is: #{otp.secret}
                         For: #{otp.email}
                         Transaction ID: #{otp.id}
-                        BODY
+                        Your validation link is: http://localhost:8080/validate/#{otp.id}/#{otp.secret}
                     }
                 end
 
                 return otp
 
-            rescue Exception => e  
+            rescue Exception => e
                 print "Exception occured:\n" + e.full_message
             end
         end
     end
 end
-
