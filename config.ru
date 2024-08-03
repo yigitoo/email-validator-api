@@ -1,4 +1,4 @@
 #!/usr/bin/ruby
 
-require_relative './app'
+require_relative './src/app'
 run EmailValidatorAPI
